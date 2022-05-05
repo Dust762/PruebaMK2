@@ -588,7 +588,7 @@ namespace PruebaMK2
             }
             return empty;
         }
-
+        // Prueba
         public static void preCarga()
         {
             for (int i = 0; i < 10; i++)
