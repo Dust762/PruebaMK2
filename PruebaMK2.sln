@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.32228.343
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PruebaMK2", "PruebaMK2\PruebaMK2.csproj", "{42A47943-37CE-4E82-92BF-754BC6C06986}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PruebaMK2Modelo", "PruebaMK2Modelo\PruebaMK2Modelo.csproj", "{49A10091-0A48-4E77-A8A9-7EB5410CF092}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{42A47943-37CE-4E82-92BF-754BC6C06986}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{42A47943-37CE-4E82-92BF-754BC6C06986}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{42A47943-37CE-4E82-92BF-754BC6C06986}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{42A47943-37CE-4E82-92BF-754BC6C06986}.Release|Any CPU.Build.0 = Release|Any CPU
+		{49A10091-0A48-4E77-A8A9-7EB5410CF092}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{49A10091-0A48-4E77-A8A9-7EB5410CF092}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{49A10091-0A48-4E77-A8A9-7EB5410CF092}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{49A10091-0A48-4E77-A8A9-7EB5410CF092}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {69BA97FE-0AFA-4C72-9E83-8ECC8AB65476}
+	EndGlobalSection
+EndGlobal
