@@ -192,7 +192,7 @@ namespace PruebaMK2
                         for (int f = 0; f < tecnicos.Count; f++)
                         {
                             Console.WriteLine("Tecnicos disponibles");
-                            Console.WriteLine(tecnicos[i].ToString());
+                            Console.WriteLine(tecnicos[f].ToString());
                         }
                         do
                         {
@@ -200,7 +200,18 @@ namespace PruebaMK2
                             opValida = int.TryParse(Console.ReadLine().Trim(), out op);
 
                         } while (tecnicos.Count < op);
+                        for (int c = 0; c < tecnicos.Count; c++){
+                            if (tecnicos[c].IdTecnico == op){
+                                tickets[i].NombreTecnico = tecnicos[c].Nombre;
+                                tecnicos[c].agregarTicket(tickets[i]);
+	                        }
+	
 
+
+			            }
+			
+			
+                        
 
                     }
                     else
@@ -210,7 +221,7 @@ namespace PruebaMK2
                         Console.WriteLine("Ticket ya asignados: ");
                         Console.WriteLine(tickets[i].ToString());
                     }
-
+                   
                 }
 
             }
@@ -445,6 +456,7 @@ namespace PruebaMK2
 
                 Ticket t = new Ticket(nombreUsuario, nombreTecnico, descripcion, categoria);
                 t.Estado = TicketDAL.Pendiente;
+                
                 switch (codEsta)
                 {
                     case 1:
@@ -600,7 +612,7 @@ namespace PruebaMK2
             for (int i = 0; i < 10; i++)
             {
 
-                Tecnico tecjemplo = new Tecnico("20" + i, "Ejemplo", "Tecnico", "F");
+                Tecnico tecjemplo = new Tecnico("20" + i, "Ejemplo"+i, "Tecnico", "F");
                 tDAL.agregarTecnico(tecjemplo);
 
             }
