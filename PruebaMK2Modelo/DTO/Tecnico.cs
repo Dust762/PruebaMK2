@@ -11,6 +11,7 @@ namespace PruebaMK2Modelo.DTO
         private static int nroTecnico;
         private int idTecnico;
         private List<Ticket> ticketsAsignados;
+        private static readonly int maxTrabajo = 10;
         public Tecnico(String rut, String nombre, String apellido, String sexo) : base(rut, nombre, apellido, sexo)
         {
             base.Rut = rut;

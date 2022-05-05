@@ -92,6 +92,7 @@ namespace PruebaMK2
                     break;
                 case "2":
                     Console.WriteLine("Se asigno un ticket");
+                    asigarTicket();
                     break;
                 case "3":
                     Console.WriteLine("Se respondio un ticket");
@@ -170,9 +171,15 @@ namespace PruebaMK2
         {
             List<Ticket> tickets = tiDAL.mostrarTicket();
             List<Tecnico> tecnicos = tDAL.mostrarTecnicos();
+            int op;
+            bool opValida;
             if (tickets.Count < 1)
             {
                 Console.WriteLine("No hay tickets");
+            }
+            else if (tecnicos.Count < 1)
+            {
+                Console.WriteLine("No hay tecnicos");
             }
             else
             {
@@ -180,7 +187,21 @@ namespace PruebaMK2
                 {
                     if (tickets[i].NombreTecnico.Equals(""))
                     {
+                        Console.WriteLine("Tickets sin asignar");
                         Console.WriteLine(tickets[i].ToString());
+                        for (int f = 0; f < tecnicos.Count; f++)
+                        {
+                            Console.WriteLine("Tecnicos disponibles");
+                            Console.WriteLine(tecnicos[i].ToString());
+                        }
+                        do
+                        {
+                            Console.WriteLine("Ingrese el id del tecnico a asignar");
+                            opValida = int.TryParse(Console.ReadLine().Trim(), out op);
+
+                        } while (tecnicos.Count < op);
+
+
                     }
                     else
                     {
@@ -191,6 +212,7 @@ namespace PruebaMK2
                     }
 
                 }
+
             }
 
 
@@ -226,7 +248,7 @@ namespace PruebaMK2
                     if (tecnicos[i].TicketsAsignados.Count < 1)
                     {
                         Console.WriteLine("No tiene tickets asignados");
-                        Console.ReadKey();
+
                     }
                     else
                     {
@@ -236,8 +258,9 @@ namespace PruebaMK2
                             Console.ReadKey();
                         }
                     }
-                    Console.ReadKey();
+
                 }
+                Console.ReadKey();
             }
         }
 
@@ -531,9 +554,20 @@ namespace PruebaMK2
         public static bool modoDev()
         {
             bool continuar = true;
-
+            String op;
             Console.WriteLine("modo dev");
             Console.WriteLine("Para facilitar el testing");
+            do
+            {
+                Console.WriteLine("Realizar preCarga de datos(Categoria, tickets y tecnicos) Si - No");
+                op = Console.ReadLine().Trim().ToUpper();
+            } while (!(op.Equals("SI") || op.Equals("NO")));
+            if (op.Equals("SI"))
+            {
+                preCarga();
+                Console.WriteLine("Se ha realizado la precarga");
+                continuar = false;
+            }
             Console.ReadKey();
             Console.Clear();
 
@@ -557,6 +591,27 @@ namespace PruebaMK2
 
         public static void preCarga()
         {
+            for (int i = 0; i < 10; i++)
+            {
+                Categoria ejemploCat = new Categoria("EjemploCategoria" + i);
+                
+                catDAL.agregarCategoria(ejemploCat);
+            }
+            for (int i = 0; i < 10; i++)
+            {
+
+                Tecnico tecjemplo = new Tecnico("20" + i, "Ejemplo", "Tecnico", "F");
+                tDAL.agregarTecnico(tecjemplo);
+
+            }
+
+            for (int i = 0; i < 10; i++)
+            {
+                Ticket ejemplo = new Ticket("Usuario" + i, "", "Ejemplo" + i, "Ejemplo");
+                ejemplo.Estado = TicketDAL.Pendiente;
+                ejemplo.Prioridad = TicketDAL.Emergencia;
+                tiDAL.agregarTicket(ejemplo);
+            }
 
         }
 
