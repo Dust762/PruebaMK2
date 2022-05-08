@@ -68,8 +68,17 @@ namespace PruebaMK2Modelo.DAL
         public void eliminarTicket(Ticket t) {
             tickets.Remove(t);
         }
-        public void actualizarTicket(Ticket t) { 
-            
+        public void actualizarTicket(Ticket t, String cambio, string option) {
+            switch (option)
+	        {
+		     case "1":
+                t.NombreUsuario = cambio;
+                break;
+             case "2":
+                t.NombreTecnico = cambio;
+                break;
+	        }
+
         }
     }
 }

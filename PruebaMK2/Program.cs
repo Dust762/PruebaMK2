@@ -174,6 +174,7 @@ namespace PruebaMK2
             List<Tecnico> tecnicos = tDAL.mostrarTecnicos();
             int op;
             bool opValida;
+            String resp;
             if (tickets.Count < 1)
             {
                 Console.WriteLine("No hay tickets");
@@ -197,8 +198,13 @@ namespace PruebaMK2
                         }
                         do
                         {
-                            Console.WriteLine("Ingrese el id del tecnico a asignar");
-                            opValida = int.TryParse(Console.ReadLine().Trim(), out op);
+                            do
+	                        {
+                              Console.WriteLine("Ingrese el id del tecnico a asignar");
+                              resp = Console.ReadLine().Trim();
+	                        } while (noVacio(resp));
+                            
+                            opValida = int.TryParse(resp, out op);
 
                         } while (tecnicos.Count < op);
                         for (int c = 0; c < tecnicos.Count; c++)
@@ -235,14 +241,15 @@ namespace PruebaMK2
         public static void modificarTicket()
         {
             List<Ticket> tickets = tiDAL.mostrarTicket();
+            List<Tecnico> tecnicos = tDAL.mostrarTecnicos();
             String op;
-            int codti;
+            int codti, opTec;
             String nombre;
-            bool codVal;
+            bool codVal, opTecValido;
             if (tickets.Count < 1)
             {
                 Console.WriteLine("No hay tickets para modificar");
-
+                Console.ReadKey();
             }
             else
             {
@@ -274,7 +281,10 @@ namespace PruebaMK2
                                         Console.WriteLine("Ingrese el nombre: ");
                                         nombre = Console.ReadLine().Trim();
                                     } while (noVacio(nombre));
-                                    tickets[i].NombreUsuario = nombre;
+                                    Ticket temp = null;
+                                    temp = tickets[i];
+                                    tiDAL.actualizarTicket(temp,nombre,op);
+                                    //tickets[i].NombreUsuario = nombre;
                                     Console.WriteLine("Nombre cambiado");
                                     Console.ReadKey();
                                     break;
@@ -283,7 +293,49 @@ namespace PruebaMK2
                                 }
                             }
                             break;
+                        case "2":
+                            if (tDAL.mostrarTecnicos().Count < 1)
+	                        {
+                                Console.WriteLine("No hay tecnicos disponibles");
+                                Console.ReadKey();
+                                break;
+	                        }
+                            for (int i = 0; i < tickets.Count; i++)
+                            {
+                                Console.WriteLine(tickets[i].ToString());
+                            }
+                            Console.WriteLine("Ingrese el id del ticket a modificar");
+                            codVal = int.TryParse(Console.ReadLine().Trim(), out codti);
+                            for (int i = 0; i < tickets.Count; i++)
+			                {
+                                if (tickets[i].IdTicket == codti)
+	                            {
+                                    Console.WriteLine("Tecnicos disponibles");
+                                    for (int f = 0; f < tecnicos.Count; f++)
+			                        {
+                                        Console.WriteLine(tecnicos[f].ToString());
 
+			                        }
+                                    do
+	                                {
+                                        Console.WriteLine("Ingrese el id del tecnico que desea");
+                                        opTecValido = int.TryParse(Console.ReadLine().Trim(), out opTec);
+
+	                                } while (tecnicos.Count <= opTec);
+                                    for (int f = 0; f < tecnicos.Count; f++)
+			                        {
+                                        if (tecnicos[f].IdTecnico == opTec)
+	                                    {
+                                            Ticket temp = tickets[i];
+                                            tiDAL.actualizarTicket(temp, tecnicos[f].Nombre, op);
+                                            Console.WriteLine("Nombre cambiado");
+                                            Console.ReadKey();
+                                            break;
+	                                    }
+			                        }
+	                            }
+			                }
+                            break;
 
 
 
