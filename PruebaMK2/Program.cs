@@ -99,6 +99,7 @@ namespace PruebaMK2
                     break;
                 case "4":
                     Console.WriteLine("Se modifico un ticket");
+                    modificarTicket();
                     break;
                 case "5":
                     Console.WriteLine("Se creo una categoria");
@@ -200,35 +201,110 @@ namespace PruebaMK2
                             opValida = int.TryParse(Console.ReadLine().Trim(), out op);
 
                         } while (tecnicos.Count < op);
-                        for (int c = 0; c < tecnicos.Count; c++){
-                            if (tecnicos[c].IdTecnico == op){
+                        for (int c = 0; c < tecnicos.Count; c++)
+                        {
+                            if (tecnicos[c].IdTecnico == op)
+                            {
                                 tickets[i].NombreTecnico = tecnicos[c].Nombre;
                                 tecnicos[c].agregarTicket(tickets[i]);
-	                        }
-	
+                            }
 
 
-			            }
-			
-			
-                        
+
+                        }
+                        Console.Clear();
+
+
+
 
                     }
                     else
                     {
-
+                        Console.WriteLine();
                         Console.WriteLine("--------------------");
                         Console.WriteLine("Ticket ya asignados: ");
                         Console.WriteLine(tickets[i].ToString());
                     }
-                   
+
                 }
 
             }
 
 
         }
+        public static void modificarTicket()
+        {
+            List<Ticket> tickets = tiDAL.mostrarTicket();
+            String op;
+            int codti;
+            String nombre;
+            bool codVal;
+            if (tickets.Count < 1)
+            {
+                Console.WriteLine("No hay tickets para modificar");
 
+            }
+            else
+            {
+                do
+                {
+                    Console.WriteLine("Actualizar ticket");
+                    Console.WriteLine("1. Cambiar nombre de usuario");
+                    Console.WriteLine("2. Cambiar tecnico");
+                    Console.WriteLine("3. Cambiar descripcion");
+                    Console.WriteLine("4. Cambiar categoria");
+                    Console.WriteLine("5. Salir");
+                    op = Console.ReadLine().Trim();
+
+                    switch (op)
+                    {
+                        case "1":
+                            for (int i = 0; i < tickets.Count; i++)
+                            {
+                                Console.WriteLine(tickets[i].ToString());
+                            }
+                            Console.WriteLine("Ingrese el id del ticket a modificar");
+                            codVal = int.TryParse(Console.ReadLine().Trim(), out codti);
+                            for (int i = 0; i < tickets.Count; i++)
+                            {
+                                if (tickets[i].IdTicket == codti)
+                                {
+                                    do
+                                    {
+                                        Console.WriteLine("Ingrese el nombre: ");
+                                        nombre = Console.ReadLine().Trim();
+                                    } while (noVacio(nombre));
+                                    tickets[i].NombreUsuario = nombre;
+                                    Console.WriteLine("Nombre cambiado");
+                                    Console.ReadKey();
+                                    break;
+
+
+                                }
+                            }
+                            break;
+
+
+
+
+                        case "4":
+                            if (catDAL.mostrarCategorias().Count < 1)
+                            {
+                                Console.WriteLine("No hay categorias");
+                                break;
+                            }
+                            else
+                            {
+
+
+                            }
+
+                            break;
+                    }
+                } while (op != "5");
+            }
+
+        }
         public static void crearCategoria()
         {
             Console.WriteLine("Creando categoria");
@@ -456,7 +532,7 @@ namespace PruebaMK2
 
                 Ticket t = new Ticket(nombreUsuario, nombreTecnico, descripcion, categoria);
                 t.Estado = TicketDAL.Pendiente;
-                
+
                 switch (codEsta)
                 {
                     case 1:
@@ -606,13 +682,13 @@ namespace PruebaMK2
             for (int i = 0; i < 10; i++)
             {
                 Categoria ejemploCat = new Categoria("EjemploCategoria" + i);
-                
+
                 catDAL.agregarCategoria(ejemploCat);
             }
             for (int i = 0; i < 10; i++)
             {
 
-                Tecnico tecjemplo = new Tecnico("20" + i, "Ejemplo"+i, "Tecnico", "F");
+                Tecnico tecjemplo = new Tecnico("20" + i, "Ejemplo" + i, "Tecnico", "F");
                 tDAL.agregarTecnico(tecjemplo);
 
             }
