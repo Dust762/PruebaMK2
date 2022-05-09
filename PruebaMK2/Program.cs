@@ -683,7 +683,7 @@ namespace PruebaMK2
                     break;
                 case "2":
                     Console.WriteLine("Se consulto un ticket");
-
+                    consultarTicket();
                     break;
                 case "3":
                     Console.WriteLine("Se cerro un ticket");
@@ -804,6 +804,39 @@ namespace PruebaMK2
 
             }
 
+        }
+
+        public static void consultarTicket() {
+            List<Ticket> tickets = tiDAL.mostrarTicket();
+            int codTi;
+            bool codVal;
+            if (tickets.Count < 1)
+	        {
+                Console.WriteLine("No hay tickets al cual consultar");
+	        }else
+	        {
+                for (int i = 0; i < tickets.Count; i++)
+			    {
+                    Console.WriteLine(tickets[i].ToString());
+			    }
+                do
+	            {
+                    Console.WriteLine("Ingrese el id del ticket a consultar a detalle");
+                    codVal = int.TryParse(Console.ReadLine().Trim(), out codTi);
+	            } while (!codVal);
+
+                for (int i = 0; i < tickets.Count; i++)
+			    {
+                    if (tickets[i].IdTicket == codTi)
+	                {
+                        Console.WriteLine(tickets[i].ToString() + ", Estado: " + tickets[i].Estado.estadoNombre);
+                        Console.WriteLine(tickets[i].Prioridad.Nombre + "}");
+                        Console.ReadKey();
+                        Console.Clear();
+                        break;
+	                }
+			    }
+	        }
         }
 
         public static void cerrarTicket() {
