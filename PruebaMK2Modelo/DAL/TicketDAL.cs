@@ -77,6 +77,12 @@ namespace PruebaMK2Modelo.DAL
              case "2":
                 t.NombreTecnico = cambio;
                 break;
+             case "3":
+                t.Descripcion = cambio;
+                break;
+             case "4":
+                t.Categoria = cambio;
+                break;
 	        }
 
         }
