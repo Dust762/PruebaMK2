@@ -37,6 +37,12 @@ namespace PruebaMK2Modelo.DAL
             codEstado = 4
 
         };
+        public static readonly Estado Terminado = new Estado() 
+        { 
+            estadoNombre = "Terminado",
+            codEstado = 5
+        
+        };
 
         public static readonly Prioridad Emergencia = new Prioridad() 
         {
