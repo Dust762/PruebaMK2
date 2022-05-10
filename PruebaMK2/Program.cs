@@ -914,7 +914,7 @@ namespace PruebaMK2
             
             int codTi;
             bool codVal;
-            if(tickets.Count < 1)
+            if(tickets.Count > 0)
             { 
                 for (int i = 0; i < tickets.Count; i++)
 			    {
@@ -922,34 +922,35 @@ namespace PruebaMK2
 	                {
                         Console.WriteLine("Tickets terminados");
                         Console.WriteLine(tickets[i].ToString());
-                        do
-	                    {
-                            Console.WriteLine("Ingrese el id del ticket a cerrar");
-                            codVal = int.TryParse(Console.ReadLine().Trim(), out codTi);
+                        
 
-	                    } while (!codVal);
-
-                        for (int f = 0; f < tickets.Count; f++)
-			            {
-                            if (tickets[f].IdTicket == codTi)
-	                        {
-                                tickets[f].Estado = TicketDAL.Cerrado;
-                                Console.WriteLine("Ticket cerrado");
-                                Console.ReadKey();
-	                        }
-			            }
-
-	                }
-                    else
-	                {
-                        Console.WriteLine("No hay tickets terminados");
-                        Console.ReadKey();
 	                }
 
 			    }
+                do
+	            {
+                    Console.WriteLine("Ingrese el id del ticket a cerrar");
+                    codVal = int.TryParse(Console.ReadLine().Trim(), out codTi);
+
+	            } while (!codVal);
+
+                for (int f = 0; f < tickets.Count; f++)
+			    {
+                    if (tickets[f].IdTicket == codTi)
+	                {
+                        tickets[f].Estado = TicketDAL.Cerrado;
+                        Console.WriteLine("Ticket cerrado");
+                        Console.ReadKey();
+                        break;
+	                }
+			    }
             }
-            Console.WriteLine("No hay tickets");
-            Console.ReadKey();
+            else
+	        {
+                Console.WriteLine("No hay tickets");
+                Console.ReadKey();
+	        }
+            
             
         }
 
