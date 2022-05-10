@@ -178,10 +178,12 @@ namespace PruebaMK2
             if (tickets.Count < 1)
             {
                 Console.WriteLine("No hay tickets");
+                Console.ReadKey();
             }
             else if (tecnicos.Count < 1)
             {
                 Console.WriteLine("No hay tecnicos");
+                Console.ReadKey();
             }
             else
             {
@@ -244,9 +246,9 @@ namespace PruebaMK2
             List<Tecnico> tecnicos = tDAL.mostrarTecnicos();
             List<Categoria> categorias = catDAL.mostrarCategorias();
             String op;
-            int codti, opTec, codCat;
-            String nombre,desc;
-            bool codVal, opTecValido, catVal;
+            int codti, opTec, codCat, codEsta;
+            String nombre,desc, observacion;
+            bool codVal, opTecValido, catVal, codEstaVal;
             if (tickets.Count < 1)
             {
                 Console.WriteLine("No hay tickets para modificar");
@@ -261,7 +263,8 @@ namespace PruebaMK2
                     Console.WriteLine("2. Cambiar tecnico");
                     Console.WriteLine("3. Cambiar descripcion");
                     Console.WriteLine("4. Cambiar categoria");
-                    Console.WriteLine("5. Salir");
+                    Console.WriteLine("5. Cambiar estado");
+                    Console.WriteLine("6. Salir");
                     op = Console.ReadLine().Trim();
 
                     switch (op)
@@ -357,8 +360,12 @@ namespace PruebaMK2
 			                {
                                 Console.WriteLine(tickets[i].ToString());
 			                }
-                            Console.WriteLine("Ingrese el id del ticket a modificar");
-                            codVal = int.TryParse(Console.ReadLine().Trim(), out codti);
+                            do
+	                        {
+                                Console.WriteLine("Ingrese el id del ticket a modificar");
+                                codVal = int.TryParse(Console.ReadLine().Trim(), out codti);
+	                        } while (!codVal);
+                            
                             for (int i = 0; i <= tickets.Count; i++)
 			                {
                                 if (tickets[i].IdTicket == codti)
@@ -425,8 +432,71 @@ namespace PruebaMK2
                             }
 
                             break;
+                        case "5":
+                            if (tickets.Count < 1)
+	                        {
+                                Console.WriteLine("No hay tickets");
+	                        }
+                            else
+	                        {
+                                for (int i = 0; i < tickets.Count; i++)
+			                    {
+                                    Console.WriteLine(tickets[i].ToString() + ", Estado: " + tickets[i].Estado.estadoNombre);
+			                    }
+                                do
+	                            {
+                                    Console.WriteLine("Ingrese el id del ticket a modificar");
+                                    codVal = int.TryParse(Console.ReadLine().Trim(), out codti);
+	                            } while (!codVal);
+                                for (int i = 0; i < tickets.Count; i++)
+			                    {
+                                    if (tickets[i].IdTicket == codti)
+	                                {
+                                        do
+	                                    {
+                                            Console.WriteLine("Ingrese el estado a establecer");
+                                            Console.WriteLine("1. En progreso");
+                                            Console.WriteLine("2. Pendiente");
+                                            Console.WriteLine("3. Bloqueado");
+                                            Console.WriteLine("4. Cerrado");
+                                            Console.WriteLine("5. Terminado");
+                                            codEstaVal = int.TryParse(Console.ReadLine().Trim(), out codEsta);
+	                                    } while (codEsta < 0 || codEsta > 6);
+                                        switch (codEsta)
+	                                    {
+                                            case 1:
+                                                tickets[i].Estado = TicketDAL.EnProgreso;
+                                                break;
+                                            case 2:
+                                                tickets[i].Estado = TicketDAL.Pendiente;
+                                                break;
+                                            case 3:
+                                                tickets[i].Estado = TicketDAL.Bloqueado;
+                                                do
+	                                            {
+                                                    Console.WriteLine("Ingrese el motivo del bloqueo");
+                                                    observacion = Console.ReadLine().Trim();
+	                                            } while (noVacio(observacion));
+                                                tickets[i].agregarObservacion(observacion);
+                                                break;
+                                            case 4:
+                                                tickets[i].Estado = TicketDAL.Cerrado;
+                                                break;
+                                            case 5:
+                                                tickets[i].Estado = TicketDAL.Terminado;
+                                                break;
+		                                    default:
+                                                Console.WriteLine("Valor no valido");
+                                                Console.ReadKey();
+                                                break;
+	                                    }
+                                        Console.Clear();
+	                                }
+			                    }
+	                        }
+                            break;
                     }
-                } while (op != "5");
+                } while (op != "6");
             }
 
         }
@@ -678,15 +748,15 @@ namespace PruebaMK2
             switch (op)
             {
                 case "1":
-                    Console.WriteLine("Se creo un ticket");
+                    
                     crearTicket();
                     break;
                 case "2":
-                    Console.WriteLine("Se consulto un ticket");
+                    
                     consultarTicket();
                     break;
                 case "3":
-                    Console.WriteLine("Se cerro un ticket");
+                    
                     cerrarTicket();
                     break;
                 case "4":
@@ -841,32 +911,46 @@ namespace PruebaMK2
 
         public static void cerrarTicket() {
             List<Ticket> tickets = tiDAL.mostrarTicket();
-            Console.WriteLine("Tickets terminados");
+            
             int codTi;
             bool codVal;
-            for (int i = 0; i < tickets.Count; i++)
-			{
-                if (tickets[i].Estado.estadoNombre.Equals("Terminado"))
-	            {
-                    Console.WriteLine(tickets[i].ToString());
-	            }
-			}
-            do
-	        {
-                Console.WriteLine("Ingrese el id del ticket a cerrar");
-                codVal = int.TryParse(Console.ReadLine().Trim(), out codTi);
+            if(tickets.Count < 1)
+            { 
+                for (int i = 0; i < tickets.Count; i++)
+			    {
+                    if (tickets[i].Estado.estadoNombre.Equals("Terminado"))
+	                {
+                        Console.WriteLine("Tickets terminados");
+                        Console.WriteLine(tickets[i].ToString());
+                        do
+	                    {
+                            Console.WriteLine("Ingrese el id del ticket a cerrar");
+                            codVal = int.TryParse(Console.ReadLine().Trim(), out codTi);
 
-	        } while (!codVal);
+	                    } while (!codVal);
 
-            for (int i = 0; i < tickets.Count; i++)
-			{
-                if (tickets[i].IdTicket == codTi)
-	            {
-                    tickets[i].Estado = TicketDAL.Cerrado;
-                    Console.WriteLine("Ticket cerrado");
-                    Console.ReadKey();
-	            }
-			}
+                        for (int f = 0; f < tickets.Count; f++)
+			            {
+                            if (tickets[f].IdTicket == codTi)
+	                        {
+                                tickets[f].Estado = TicketDAL.Cerrado;
+                                Console.WriteLine("Ticket cerrado");
+                                Console.ReadKey();
+	                        }
+			            }
+
+	                }
+                    else
+	                {
+                        Console.WriteLine("No hay tickets terminados");
+                        Console.ReadKey();
+	                }
+
+			    }
+            }
+            Console.WriteLine("No hay tickets");
+            Console.ReadKey();
+            
         }
 
         public static bool modoDev()
