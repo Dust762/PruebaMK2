@@ -128,6 +128,7 @@ namespace PruebaMK2
 
         public static void crearTecnico()
         {
+            Console.Clear();
             String rut, nombre, apellido, sexo;
             Console.WriteLine("Creando un tecnico");
             do
@@ -170,6 +171,7 @@ namespace PruebaMK2
 
         public static void asigarTicket()
         {
+            Console.Clear();
             List<Ticket> tickets = tiDAL.mostrarTicket();
             List<Tecnico> tecnicos = tDAL.mostrarTecnicos();
             int op;
@@ -242,6 +244,7 @@ namespace PruebaMK2
         }
         public static void modificarTicket()
         {
+            Console.Clear();
             List<Ticket> tickets = tiDAL.mostrarTicket();
             List<Tecnico> tecnicos = tDAL.mostrarTecnicos();
             List<Categoria> categorias = catDAL.mostrarCategorias();
@@ -258,6 +261,7 @@ namespace PruebaMK2
             {
                 do
                 {
+                    
                     Console.WriteLine("Actualizar ticket");
                     Console.WriteLine("1. Cambiar nombre de usuario");
                     Console.WriteLine("2. Cambiar tecnico");
@@ -297,7 +301,7 @@ namespace PruebaMK2
 
                                 }
                             }
-                            
+                            Console.Clear();
                             break;
                         case "2":
                             if (tDAL.mostrarTecnicos().Count < 1)
@@ -348,6 +352,7 @@ namespace PruebaMK2
 	                            }
                                 
 			                }
+                            Console.Clear();
                             break;
                         case "3":
                             if (tickets.Count < 1)
@@ -380,6 +385,7 @@ namespace PruebaMK2
                                     break;
 	                            }
 			                }
+                            Console.Clear();
                             break;
 
 
@@ -430,7 +436,7 @@ namespace PruebaMK2
 	                                }
 			                    }
                             }
-
+                            Console.Clear();
                             break;
                         case "5":
                             if (tickets.Count < 1)
@@ -494,6 +500,7 @@ namespace PruebaMK2
 	                                }
 			                    }
 	                        }
+                            Console.Clear();
                             break;
                     }
                 } while (op != "6");
