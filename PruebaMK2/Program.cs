@@ -13,6 +13,7 @@ namespace PruebaMK2
         private static TicketDAL tiDAL = new TicketDAL();
         private static TecnicoDAL tDAL = new TecnicoDAL();
         private static CategoriaDAL catDAL = new CategoriaDAL();
+        private static MensajeDAL menDAL = new MensajeDAL();
         static void Main(string[] args)
         {
             while (menuPrincipal()) ;
@@ -95,7 +96,7 @@ namespace PruebaMK2
                     asigarTicket();
                     break;
                 case "3":
-                    Console.WriteLine("Se respondio un ticket");
+                    Console.WriteLine("Se respondio un mensaje");
                     break;
                 case "4":
                     Console.WriteLine("Se modifico un ticket");
