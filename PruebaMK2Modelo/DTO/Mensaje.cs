@@ -26,7 +26,7 @@ namespace PruebaMK2Modelo.DTO
         {
             String direccion = "Emisor: " + this.Emisor + ", Receptor: " + this.Receptor;
             String msg = this.Mensa;
-            return direccion +"\n" + msg;
+            return direccion +"\n" +"Mensaje: " + msg;
         }
     }
 }

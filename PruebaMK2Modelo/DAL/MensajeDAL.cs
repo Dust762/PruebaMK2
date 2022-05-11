@@ -9,23 +9,27 @@ namespace PruebaMK2Modelo.DAL
 {
     public class MensajeDAL
     {
-        public static List<Mensaje> mensajes = new List<Categoria>();
+        public static List<Mensaje> mensajes = new List<Mensaje>();
 
-        public void crearMensaje(Mensaje m) {
+        public void crearMensaje(Mensaje m)
+        {
 
             mensajes.Add(m);
         }
 
-        public void eliminarMensaje(Mensaje m) {
+        public void eliminarMensaje(Mensaje m)
+        {
             mensajes.Remove(m);
         }
 
-        public List<Mensajes> mostrarMensajes() {
+        public List<Mensaje> mostrarMensajes()
+        {
             return mensajes;
         }
 
-        public void actualizarCategoria() { 
-            
+        public void actualizarCategoria()
+        {
+
         }
     }
 }

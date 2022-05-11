@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DAL\CategoriaDAL.cs" />
+    <Compile Include="DAL\MensajeDAL.cs" />
     <Compile Include="DAL\TecnicoDAL.cs" />
     <Compile Include="DAL\TicketDAL.cs" />
     <Compile Include="DAL\UsuarioDAL.cs" />
