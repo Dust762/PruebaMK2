@@ -247,7 +247,7 @@ namespace PruebaMK2
         public static void responderMensajes()
         {
             List<Mensaje> msgs = menDAL.mostrarMensajes();
-            String nombre,resp;
+            String nombre, resp;
             int nro = 0;
             if (msgs.Count < 1)
             {
@@ -273,7 +273,7 @@ namespace PruebaMK2
                             Console.WriteLine("Ingrese su respuesta: ");
                             resp = Console.ReadLine().Trim();
                         } while (noVacio(resp));
-                        Mensaje msg = new Mensaje(nombre, msgs[i].Emisor,resp);
+                        Mensaje msg = new Mensaje(nombre, msgs[i].Emisor, resp);
                         menDAL.crearMensaje(msg);
                         Console.WriteLine("---------------");
 
@@ -1008,9 +1008,10 @@ namespace PruebaMK2
 
         }
 
-        public static void verMensajes() {
+        public static void verMensajes()
+        {
             List<Mensaje> msgs = menDAL.mostrarMensajes();
-            String nombre;
+            String nombre, op, resp;
             if (msgs.Count < 1)
             {
                 Console.WriteLine("No hay mensajes");
@@ -1028,16 +1029,34 @@ namespace PruebaMK2
                 {
                     if (msgs[i].Receptor.Equals(nombre))
                     {
-                        Console.WriteLine(msgs[i].ToString());
 
+                        Console.WriteLine(msgs[i].ToString());
+                        Console.WriteLine("--------------");
+                        Console.WriteLine();
+                        do
+                        {
+                            Console.WriteLine("Desea responder el mensaje?");
+                            op = Console.ReadLine().Trim().ToUpper();
+                        } while (!(op.Equals("SI") || op.Equals("NO")));
+                        if (op.Equals("SI"))
+                        {
+                            Console.WriteLine("Ingrese su respuesta: ");
+                            resp = Console.ReadLine().Trim();
+                            Mensaje m = new Mensaje(nombre, msgs[i].Emisor, resp);
+                            menDAL.crearMensaje(m);
+                        }
                     }
+
+
                 }
+
                 Console.ReadKey();
             }
-        
+
         }
 
-        public static void enviarMensaje() {
+        public static void enviarMensaje()
+        {
             List<Mensaje> msgs = menDAL.mostrarMensajes();
             String nombreUsu, nombreDes, mensaje;
             do
@@ -1056,7 +1075,7 @@ namespace PruebaMK2
                 Console.WriteLine("Ingrese el mensaje");
                 mensaje = Console.ReadLine().Trim();
             } while (noVacio(mensaje));
-            Mensaje m = new Mensaje(nombreUsu,nombreDes,mensaje);
+            Mensaje m = new Mensaje(nombreUsu, nombreDes, mensaje);
             menDAL.crearMensaje(m);
             Console.WriteLine("Mensaje enviado");
             Console.ReadKey();
